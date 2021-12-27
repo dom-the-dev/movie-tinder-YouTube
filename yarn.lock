@@ -2289,6 +2289,13 @@ axe-core@^4.3.5:
   resolved "https://registry.yarnpkg.com/axe-core/-/axe-core-4.3.5.tgz#78d6911ba317a8262bfee292aeafcc1e04b49cc5"
   integrity sha512-WKTW1+xAzhMS5dJsxWkliixlO/PqC4VhmO9T4juNYcaTg9jzWiJsou6m5pxWYGfigWbwzJWeFY6z47a+4neRXA==
 
+axios@^0.24.0:
+  version "0.24.0"
+  resolved "https://registry.yarnpkg.com/axios/-/axios-0.24.0.tgz#804e6fa1e4b9c5288501dd9dff56a7a0940d20d6"
+  integrity sha512-Q6cWsys88HoPgAaFAVUb0WpPk0O8iTeisR9IMqy9G8AbO4NlpVknrnQS03zzF9PGAWgO3cgletO3VjV/P7VztA==
+  dependencies:
+    follow-redirects "^1.14.4"
+
 axobject-query@^2.2.0:
   version "2.2.0"
   resolved "https://registry.yarnpkg.com/axobject-query/-/axobject-query-2.2.0.tgz#943d47e10c0b704aa42275e20edf3722648989be"
@@ -4125,7 +4132,7 @@ flatted@^3.1.0:
   resolved "https://registry.yarnpkg.com/flatted/-/flatted-3.2.4.tgz#28d9969ea90661b5134259f312ab6aa7929ac5e2"
   integrity sha512-8/sOawo8tJ4QOBX8YlQBMxL8+RLZfxMQOif9o0KUKTNTjMYElWPE0r/m5VNFxTRd0NSw8qSy8dajrwX4RYI1Hw==
 
-follow-redirects@^1.0.0:
+follow-redirects@^1.0.0, follow-redirects@^1.14.4:
   version "1.14.6"
   resolved "https://registry.yarnpkg.com/follow-redirects/-/follow-redirects-1.14.6.tgz#8cfb281bbc035b3c067d6cd975b0f6ade6e855cd"
   integrity sha512-fhUl5EwSJbbl8AR+uYL2KQDxLkdSjZGR36xy46AO7cOMTrCMON6Sa28FmAnC2tRTDbd/Uuzz3aJBv7EBN7JH8A==
@@ -6131,6 +6138,11 @@ p-retry@^4.5.0:
     "@types/retry" "^0.12.0"
     retry "^0.13.1"
 
+p-sleep@^1.1.0:
+  version "1.1.0"
+  resolved "https://registry.yarnpkg.com/p-sleep/-/p-sleep-1.1.0.tgz#a6c9333059b5103c3c0e46bcbba95a1f7969095b"
+  integrity sha512-bwP3GKZirBUYMtiUuBrheLUQdRXVeE/pmHOaLpNJzNfAD4b5AjDn6l823brXcQFade4G/g7GMNQ3KV86E8EaEw==
+
 p-try@^1.0.0:
   version "1.0.0"
   resolved "https://registry.yarnpkg.com/p-try/-/p-try-1.0.0.tgz#cbc79cdbaf8fd4228e13f621f2b1a237c1b207b3"
@@ -7074,6 +7086,13 @@ react-scripts@5.0.0:
     workbox-webpack-plugin "^6.4.1"
   optionalDependencies:
     fsevents "^2.3.2"
+
+react-tinder-card@^1.4.5:
+  version "1.4.5"
+  resolved "https://registry.yarnpkg.com/react-tinder-card/-/react-tinder-card-1.4.5.tgz#946e210d7b77545e75db3b320dee0cea647480fe"
+  integrity sha512-VUdAZQiWoFClTe6Evua4sjYy3L3bSYvoWgEMNroiRoK0h5AsfqDXCfhaizUczN6gEUe0mvVDd4bZcQ1qR4sI7Q==
+  dependencies:
+    p-sleep "^1.1.0"
 
 react@^17.0.2:
   version "17.0.2"
