@@ -7,6 +7,7 @@ import SignIn from "./pages/SignIn";
 import {AuthProvider} from "./auth";
 import ProtectedRoute from "./components/ProtectedRoute";
 import Profile from "./pages/Profile";
+import Watchlist from "./pages/Watchlist";
 
 ReactDOM.render(
     <AuthProvider>
@@ -15,6 +16,7 @@ ReactDOM.render(
                 <Route index element={<Home/>}/>
                 <Route path={"sign-in"} element={<SignIn/>}/>
                 <Route path={"profile"} element={<ProtectedRoute><Profile/></ProtectedRoute>}/>
+                <Route path={"watchlist"} element={<ProtectedRoute><Watchlist/></ProtectedRoute>}/>
             </Routes>
         </BrowserRouter>
     </AuthProvider>,

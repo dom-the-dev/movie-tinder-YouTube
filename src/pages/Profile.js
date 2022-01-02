@@ -1,81 +1,91 @@
-import React, {useState, useEffect} from 'react';
-import {useAuth} from "../auth";
-import {supabase} from "../supabase";
-import axios from "axios";
-import MovieCard from "../components/MovieCard";
+import React, {useState} from 'react';
 import Layout from "../components/Layout";
+import {supabase} from "../supabase";
+import {useAuth} from "../auth";
 
 const Profile = () => {
-    const auth = useAuth();
-    const [movies, setMovies] = useState([])
+    const auth = useAuth()
 
-    const getWatchlist = async () => {
-        let movies = [];
-        const {data, error} = await supabase
-            .from("watchlists")
-            .select("movie_id")
-            .match({user_id: auth.user.id})
+    const [image, setImage] = useState(null)
+    const [username, setUsername] = useState("")
+    const [website, setWebsite] = useState("")
+    const [avatarUrl, setAvatarUrl] = useState("")
+    const [message, setMessage] = useState("")
 
-        if (error) {
-            console.log(error)
-        }
+    const handleSubmit = async (e) => {
+        e.preventDefault()
+        let avatarUrl = ""
 
-        if (data) {
+        if(image) {
+            const {data, error} = await supabase.storage.from("avatars").upload(`${Date.now()}_${image.name}`, image)
 
-            for (const movie of data) {
-                const {data} = await axios.get(`https://api.themoviedb.org/3/movie/${movie.movie_id}`, {
-                    params: {
-                        api_key: "05d6a8fbf9af3d6f7fae90a1b75a3055"
-                    }
-                })
-
-                movies.push(data)
+            if(error) {
+                console.log(error)
             }
 
-            setMovies(movies)
-
+            if(data) {
+                setAvatarUrl(data.Key)
+                avatarUrl = data.Key
+            }
         }
-    }
 
-
-    useEffect(() => {
-        getWatchlist()
-    })
-
-    const removeFromWatchlist = async (id) => {
-        const {data, error} = await supabase
-            .from("watchlists")
-            .delete()
-            .match({movie_id: id, user_id: auth.user.id})
+        const {data, error} = await supabase.from("profiles").upsert({
+            id: auth.user.id,
+            username: username,
+            website: website,
+            avatar_url: avatarUrl
+        })
 
         if(error) {
             console.log(error)
         }
 
         if(data) {
-            getWatchlist()
+            setMessage("Profile has been updated!")
         }
-
-
     }
-
-    const renderWatchlist = () => {
-        return movies.map(movie => (
-            <div>
-                <MovieCard movie={movie}/>
-                <button className={"button"} onClick={() => removeFromWatchlist(movie.id)}>Remove from Watchlist</button>
-            </div>
-        ))
-    }
-
 
     return (
         <Layout>
-            <h1>Watchlist</h1>
+            {message && message}
 
-            <div className="grid">
-                {renderWatchlist()}
-            </div>
+            <h1>Profile</h1>
+
+            {avatarUrl ? <img src={`https://rmzhnvojmpqewraookpz.supabase.in/storage/v1/object/public/${avatarUrl}`} width={200} alt=""/> : "No Avatar set"}
+
+            <form onSubmit={handleSubmit}>
+                <div className="form-group">
+                    <label htmlFor="avatar">Choose Avatar:</label>
+                    <input
+                        type="file"
+                        accept={"image/jpeg image/png"}
+                        onChange={e => setImage(e.target.files[0])}
+                    />
+                </div>
+
+                <div className="form-group">
+                    <label htmlFor="username">Username:</label>
+                    <input
+                        type="text"
+                        onChange={e => setUsername(e.target.value)}
+                        value={username}
+                    />
+                </div>
+
+                <div className="form-group">
+                    <label htmlFor="website">Website:</label>
+                    <input
+                        type="text"
+                        onChange={e => setWebsite(e.target.value)}
+                        value={website}
+                    />
+                </div>
+
+                <div className="form-group">
+                    <button type={"submit"}>Save profile!</button>
+                </div>
+
+            </form>
         </Layout>
     );
 };
