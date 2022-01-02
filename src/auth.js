@@ -49,7 +49,7 @@ function useProvideAuth() {
             }
         })
 
-        return () => auth.unsubscribe()
+        return () => auth.data.unsubscribe()
 
     }, [])
 
